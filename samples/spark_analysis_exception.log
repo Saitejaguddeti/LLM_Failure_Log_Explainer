@@ -1,0 +1,25 @@
+26/10/13 05:02:11 INFO SparkContext: Running Spark version 3.5.2-amzn-1
+26/10/13 05:02:11 INFO SparkContext: Submitted application: positions_snapshot
+26/10/13 05:02:12 INFO Client: Submitting application application_1760228400123_0533 to ResourceManager
+26/10/13 05:02:12 INFO YarnClientImpl: Submitted application application_1760228400123_0533
+26/10/13 05:02:19 INFO Client: Application report for application_1760228400123_0533 (state: RUNNING)
+26/10/13 05:03:39 INFO positions_snapshot: run date 2026-10-12
+26/10/13 05:03:39 INFO positions_snapshot: reading s3://acme-datalake-curated/trades/dt=2026-10-12/
+26/10/13 05:03:40 INFO InMemoryFileIndex: It took 412 ms to list leaf files for 1 paths.
+26/10/13 05:03:41 INFO SparkContext: Starting job: parquet at NativeMethodAccessorImpl.java:0
+26/10/13 05:03:41 INFO DAGScheduler: Job 0 finished: parquet at NativeMethodAccessorImpl.java:0, took 0.611243 s
+Traceback (most recent call last):
+  File "/mnt/tmp/spark-9d2e41c0-7b3a-4f15-8e2d-6a0c5b9f3e11/positions_snapshot.py", line 41, in <module>
+    trades.filter(F.col("trade_dt") == RUN_DATE)
+  File "/usr/lib/spark/python/lib/pyspark.zip/pyspark/sql/dataframe.py", line 3329, in filter
+  File "/usr/lib/spark/python/lib/py4j-0.10.9.7-src.zip/py4j/java_gateway.py", line 1322, in __call__
+  File "/usr/lib/spark/python/lib/pyspark.zip/pyspark/errors/exceptions/captured.py", line 185, in deco
+pyspark.errors.exceptions.captured.AnalysisException: [UNRESOLVED_COLUMN.WITH_SUGGESTION] A column or function parameter with name `trade_dt` cannot be resolved. Did you mean one of the following? [`trade_date`, `trade_id`, `trade_ts`, `account_id`, `quantity`].;
+'Filter ('trade_dt = 2026-10-12)
++- Relation [trade_id#0L,account_id#1L,symbol#2,quantity#3,price#4,trade_ts#5,trade_date#6] parquet
+
+26/10/13 05:03:42 INFO SparkContext: Invoking stop() from shutdown hook
+26/10/13 05:03:42 INFO SparkUI: Stopped Spark web UI at http://ip-10-0-2-15.ec2.internal:4040
+26/10/13 05:03:42 INFO YarnClientSchedulerBackend: Shutting down all executors
+26/10/13 05:03:43 INFO SparkContext: Successfully stopped SparkContext
+26/10/13 05:03:43 INFO ShutdownHookManager: Shutdown hook called

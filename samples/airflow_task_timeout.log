@@ -1,0 +1,50 @@
+[2026-10-12, 06:00:03 UTC] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_trades_load.merge_trades scheduled__2026-10-11T06:00:00+00:00 [queued]>
+[2026-10-12, 06:00:03 UTC] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_trades_load.merge_trades scheduled__2026-10-11T06:00:00+00:00 [queued]>
+[2026-10-12, 06:00:03 UTC] {taskinstance.py:2193} INFO - Starting attempt 2 of 3
+[2026-10-12, 06:00:03 UTC] {taskinstance.py:2214} INFO - Executing <Task(SQLExecuteQueryOperator): merge_trades> on 2026-10-11 06:00:00+00:00
+[2026-10-12, 06:00:03 UTC] {standard_task_runner.py:60} INFO - Started process 48211 to run task
+[2026-10-12, 06:00:03 UTC] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'daily_trades_load', 'merge_trades', 'scheduled__2026-10-11T06:00:00+00:00', '--job-id', '90417', '--raw', '--subdir', 'DAGS_FOLDER/daily_trades_load.py', '--cfg-path', '/tmp/tmpq8v1x2ae']
+[2026-10-12, 06:00:03 UTC] {standard_task_runner.py:88} INFO - Job 90417: Subtask merge_trades
+[2026-10-12, 06:00:04 UTC] {task_command.py:426} INFO - Running <TaskInstance: daily_trades_load.merge_trades scheduled__2026-10-11T06:00:00+00:00 [running]> on host airflow-worker-2.airflow-worker.airflow.svc.cluster.local
+[2026-10-12, 06:00:04 UTC] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data-eng' AIRFLOW_CTX_DAG_ID='daily_trades_load' AIRFLOW_CTX_TASK_ID='merge_trades' AIRFLOW_CTX_EXECUTION_DATE='2026-10-11T06:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-10-11T06:00:00+00:00'
+[2026-10-12, 06:00:04 UTC] {sql.py:276} INFO - Executing: MERGE INTO curated.trades t USING staging.trades_20261011 s ON t.trade_id = s.trade_id WHEN MATCHED THEN UPDATE SET quantity = s.quantity, price = s.price, updated_at = s.loaded_at WHEN NOT MATCHED THEN INSERT (trade_id, account_id, symbol, quantity, price, trade_ts, updated_at) VALUES (s.trade_id, s.account_id, s.symbol, s.quantity, s.price, s.trade_ts, s.loaded_at)
+[2026-10-12, 06:00:04 UTC] {base.py:84} INFO - Using connection ID 'snowflake_default' for task execution.
+[2026-10-12, 06:00:05 UTC] {connection.py:399} INFO - Snowflake Connector for Python Version: 3.12.1, Python Version: 3.11.9, Platform: Linux-5.15.0-1063-aws-x86_64-with-glibc2.36
+[2026-10-12, 06:00:05 UTC] {connection.py:1239} INFO - Connecting to GLOBAL Snowflake domain
+[2026-10-12, 06:00:05 UTC] {connection.py:1320} INFO - This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+[2026-10-12, 06:00:06 UTC] {sql.py:470} INFO - Running statement: MERGE INTO curated.trades t USING staging.trades_20261011 s ON t.trade_id = s.trade_id WHEN MATCHED THEN UPDATE SET quantity = s.quantity, price = s.price, updated_at = s.loaded_at WHEN NOT MATCHED THEN INSERT (trade_id, account_id, symbol, quantity, price, trade_ts, updated_at) VALUES (s.trade_id, s.account_id, s.symbol, s.quantity, s.price, s.trade_ts, s.loaded_at), parameters: None
+[2026-10-12, 06:00:06 UTC] {cursor.py:1046} INFO - query: [MERGE INTO curated.trades t USING staging.trades_20261011 s ON t.trade_id = s.tra...]
+[2026-10-12, 06:30:04 UTC] {timeout.py:68} ERROR - Process timed out, PID: 48211
+[2026-10-12, 06:30:04 UTC] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/common/sql/operators/sql.py", line 282, in execute
+    output = hook.run(
+             ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/snowflake/hooks/snowflake.py", line 407, in run
+    self._run_command(cur, sql_statement, parameters)
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/common/sql/hooks/sql.py", line 471, in _run_command
+    cur.execute(sql_statement)
+  File "/home/airflow/.local/lib/python3.11/site-packages/snowflake/connector/cursor.py", line 1080, in execute
+    ret = self._execute_helper(query, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/snowflake/connector/cursor.py", line 787, in _execute_helper
+    ret = self._connection.cmd_query(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/snowflake/connector/connection.py", line 1305, in cmd_query
+    ret = self.rest.request(
+          ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/snowflake/connector/network.py", line 734, in _request_exec_wrapper
+    time.sleep(float(sleeping_time))
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/timeout.py", line 69, in handle_timeout
+    raise AirflowTaskTimeout(self.error_message)
+airflow.exceptions.AirflowTaskTimeout: Timeout, PID: 48211
+[2026-10-12, 06:30:04 UTC] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=daily_trades_load, task_id=merge_trades, run_id=scheduled__2026-10-11T06:00:00+00:00, execution_date=20261011T060000, start_date=20261012T060003, end_date=20261012T063004
+[2026-10-12, 06:30:04 UTC] {standard_task_runner.py:104} ERROR - Failed to execute job 90417 for task merge_trades (Timeout, PID: 48211; 48211)
+[2026-10-12, 06:30:05 UTC] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2026-10-12, 06:30:05 UTC] {taskinstance.py:3482} INFO - 0 downstream tasks scheduled from follow-on schedule check

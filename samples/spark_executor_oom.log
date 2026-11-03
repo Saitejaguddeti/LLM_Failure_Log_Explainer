@@ -1,0 +1,90 @@
+26/10/12 02:10:02 INFO SparkContext: Running Spark version 3.5.2-amzn-1
+26/10/12 02:10:02 INFO SparkContext: OS info Linux, 6.1.112-122.189.amzn2023.x86_64, amd64
+26/10/12 02:10:02 INFO SparkContext: Java version 17.0.12
+26/10/12 02:10:02 INFO ResourceUtils: ==============================================================
+26/10/12 02:10:02 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/10/12 02:10:02 INFO ResourceUtils: ==============================================================
+26/10/12 02:10:02 INFO SparkContext: Submitted application: trades_daily_aggregates
+26/10/12 02:10:02 INFO SparkContext: Spark configuration:
+spark.app.name=trades_daily_aggregates
+spark.driver.memory=8g
+spark.dynamicAllocation.enabled=false
+spark.executor.cores=4
+spark.executor.instances=20
+spark.executor.memory=14g
+spark.executor.memoryOverhead=2g
+spark.master=yarn
+spark.sql.adaptive.enabled=false
+spark.sql.shuffle.partitions=200
+spark.submit.deployMode=client
+26/10/12 02:10:03 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 4, script: , vendor: , memory -> name: memory, amount: 14336, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/10/12 02:10:04 INFO Client: Requesting a new application from cluster with 21 NodeManagers
+26/10/12 02:10:04 INFO Client: Verifying our application has not requested more than the maximum memory capability of the cluster (57344 MB per container)
+26/10/12 02:10:04 INFO Client: Will allocate AM container, with 896 MB memory including 384 MB overhead
+26/10/12 02:10:05 INFO Client: Submitting application application_1760228400123_0412 to ResourceManager
+26/10/12 02:10:05 INFO YarnClientImpl: Submitted application application_1760228400123_0412
+26/10/12 02:10:11 INFO Client: Application report for application_1760228400123_0412 (state: RUNNING)
+26/10/12 02:10:30 INFO trades_daily_aggregates: reading s3://acme-datalake-curated/trades/dt=2026-10-11/
+26/10/12 02:10:41 INFO trades_daily_aggregates: reading s3://acme-datalake-curated/accounts/snapshot_date=2026-10-11/
+26/10/12 02:10:43 INFO trades_daily_aggregates: joining trades to accounts on account_id and aggregating by account_id, symbol
+26/10/12 02:14:22 INFO DAGScheduler: Submitting 200 missing tasks from ShuffleMapStage 14 (MapPartitionsRDD[61] at parquet at NativeMethodAccessorImpl.java:0) (first 15 tasks are for partitions Vector(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+26/10/12 02:14:22 INFO YarnScheduler: Adding task set 14.0 with 200 tasks resource profile 0
+26/10/12 02:14:22 INFO TaskSetManager: Starting task 112.0 in stage 14.0 (TID 3307) (ip-10-0-3-21.ec2.internal, executor 7, partition 112, NODE_LOCAL, 9142 bytes)
+26/10/12 02:15:04 INFO TaskSetManager: Finished task 0.0 in stage 14.0 (TID 3195) in 41877 ms on ip-10-0-3-44.ec2.internal (executor 12) (1/200)
+26/10/12 02:15:06 INFO TaskSetManager: Finished task 3.0 in stage 14.0 (TID 3198) in 43512 ms on ip-10-0-3-19.ec2.internal (executor 2) (2/200)
+26/10/12 02:26:41 INFO TaskSetManager: Finished task 196.0 in stage 14.0 (TID 3391) in 39264 ms on ip-10-0-3-44.ec2.internal (executor 12) (199/200)
+26/10/12 02:31:44 ERROR YarnScheduler: Lost executor 7 on ip-10-0-3-21.ec2.internal: Container killed by YARN for exceeding physical memory limits. 16.4 GB of 16 GB physical memory used. Consider boosting spark.executor.memoryOverhead.
+26/10/12 02:31:44 WARN TaskSetManager: Lost task 112.0 in stage 14.0 (TID 3307) (ip-10-0-3-21.ec2.internal executor 7): ExecutorLostFailure (executor 7 exited caused by one of the running tasks) Reason: Container killed by YARN for exceeding physical memory limits. 16.4 GB of 16 GB physical memory used. Consider boosting spark.executor.memoryOverhead.
+26/10/12 02:31:44 INFO DAGScheduler: Executor lost: 7 (epoch 21)
+26/10/12 02:31:44 INFO BlockManagerMasterEndpoint: Trying to remove executor 7 from BlockManagerMaster.
+26/10/12 02:31:45 INFO TaskSetManager: Starting task 112.1 in stage 14.0 (TID 3398) (ip-10-0-3-30.ec2.internal, executor 9, partition 112, ANY, 9142 bytes)
+26/10/12 02:35:52 ERROR YarnScheduler: Lost executor 9 on ip-10-0-3-30.ec2.internal: Container killed by YARN for exceeding physical memory limits. 16.2 GB of 16 GB physical memory used. Consider boosting spark.executor.memoryOverhead.
+26/10/12 02:35:52 WARN TaskSetManager: Lost task 112.1 in stage 14.0 (TID 3398) (ip-10-0-3-30.ec2.internal executor 9): ExecutorLostFailure (executor 9 exited caused by one of the running tasks) Reason: Container killed by YARN for exceeding physical memory limits. 16.2 GB of 16 GB physical memory used. Consider boosting spark.executor.memoryOverhead.
+26/10/12 02:35:53 INFO TaskSetManager: Starting task 112.2 in stage 14.0 (TID 3405) (ip-10-0-3-12.ec2.internal, executor 15, partition 112, ANY, 9142 bytes)
+26/10/12 02:39:58 ERROR YarnScheduler: Lost executor 15 on ip-10-0-3-12.ec2.internal: Container killed by YARN for exceeding physical memory limits. 16.5 GB of 16 GB physical memory used. Consider boosting spark.executor.memoryOverhead.
+26/10/12 02:39:58 WARN TaskSetManager: Lost task 112.2 in stage 14.0 (TID 3405) (ip-10-0-3-12.ec2.internal executor 15): ExecutorLostFailure (executor 15 exited caused by one of the running tasks) Reason: Container killed by YARN for exceeding physical memory limits. 16.5 GB of 16 GB physical memory used. Consider boosting spark.executor.memoryOverhead.
+26/10/12 02:39:59 INFO TaskSetManager: Starting task 112.3 in stage 14.0 (TID 3412) (ip-10-0-3-37.ec2.internal, executor 4, partition 112, ANY, 9142 bytes)
+26/10/12 02:44:02 ERROR YarnScheduler: Lost executor 4 on ip-10-0-3-37.ec2.internal: Container killed by YARN for exceeding physical memory limits. 16.3 GB of 16 GB physical memory used. Consider boosting spark.executor.memoryOverhead.
+26/10/12 02:44:02 WARN TaskSetManager: Lost task 112.3 in stage 14.0 (TID 3412) (ip-10-0-3-37.ec2.internal executor 4): ExecutorLostFailure (executor 4 exited caused by one of the running tasks) Reason: Container killed by YARN for exceeding physical memory limits. 16.3 GB of 16 GB physical memory used. Consider boosting spark.executor.memoryOverhead.
+26/10/12 02:44:03 ERROR TaskSetManager: Task 112 in stage 14.0 failed 4 times; aborting job
+26/10/12 02:44:03 INFO YarnScheduler: Cancelling stage 14
+26/10/12 02:44:03 INFO YarnScheduler: Killing all running tasks in stage 14: Stage cancelled: Job aborted due to stage failure: Task 112 in stage 14.0 failed 4 times, most recent failure: Lost task 112.3 in stage 14.0 (TID 3412) (ip-10-0-3-37.ec2.internal executor 4): ExecutorLostFailure (executor 4 exited caused by one of the running tasks) Reason: Container killed by YARN for exceeding physical memory limits. 16.3 GB of 16 GB physical memory used. Consider boosting spark.executor.memoryOverhead.
+26/10/12 02:44:03 INFO DAGScheduler: ShuffleMapStage 14 (parquet at NativeMethodAccessorImpl.java:0) failed in 1781.612 s due to Job aborted due to stage failure: Task 112 in stage 14.0 failed 4 times, most recent failure: Lost task 112.3 in stage 14.0 (TID 3412) (ip-10-0-3-37.ec2.internal executor 4): ExecutorLostFailure (executor 4 exited caused by one of the running tasks) Reason: Container killed by YARN for exceeding physical memory limits. 16.3 GB of 16 GB physical memory used. Consider boosting spark.executor.memoryOverhead.
+26/10/12 02:44:03 INFO DAGScheduler: Job 9 failed: parquet at NativeMethodAccessorImpl.java:0, took 1782.114533 s
+26/10/12 02:44:03 ERROR FileFormatWriter: Aborting job 6c1e9f0a-2b7d-4c55-9a51-0d1f3b6c8e21.
+org.apache.spark.SparkException: Job aborted due to stage failure: Task 112 in stage 14.0 failed 4 times, most recent failure: Lost task 112.3 in stage 14.0 (TID 3412) (ip-10-0-3-37.ec2.internal executor 4): ExecutorLostFailure (executor 4 exited caused by one of the running tasks) Reason: Container killed by YARN for exceeding physical memory limits. 16.3 GB of 16 GB physical memory used. Consider boosting spark.executor.memoryOverhead.
+Driver stacktrace:
+	at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2898)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2(DAGScheduler.scala:2834)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2$adapted(DAGScheduler.scala:2833)
+	at scala.collection.mutable.ResizableArray.foreach(ResizableArray.scala:62)
+	at scala.collection.mutable.ResizableArray.foreach$(ResizableArray.scala:55)
+	at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:49)
+	at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2833)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1(DAGScheduler.scala:1253)
+	at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:1253)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:3102)
+	at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)
+Traceback (most recent call last):
+  File "/mnt/tmp/spark-3b1c7e2a-5d0f-4a8e-9c61-2f4e8b7d1a90/trades_daily_aggregates.py", line 88, in <module>
+    .parquet(OUTPUT_PATH)
+     ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/spark/python/lib/pyspark.zip/pyspark/sql/readwriter.py", line 1721, in parquet
+  File "/usr/lib/spark/python/lib/py4j-0.10.9.7-src.zip/py4j/java_gateway.py", line 1322, in __call__
+  File "/usr/lib/spark/python/lib/pyspark.zip/pyspark/errors/exceptions/captured.py", line 179, in deco
+  File "/usr/lib/spark/python/lib/py4j-0.10.9.7-src.zip/py4j/protocol.py", line 326, in get_return_value
+py4j.protocol.Py4JJavaError: An error occurred while calling o212.parquet.
+: org.apache.spark.SparkException: Job aborted due to stage failure: Task 112 in stage 14.0 failed 4 times, most recent failure: Lost task 112.3 in stage 14.0 (TID 3412) (ip-10-0-3-37.ec2.internal executor 4): ExecutorLostFailure (executor 4 exited caused by one of the running tasks) Reason: Container killed by YARN for exceeding physical memory limits. 16.3 GB of 16 GB physical memory used. Consider boosting spark.executor.memoryOverhead.
+	at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2898)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2(DAGScheduler.scala:2834)
+	at org.apache.spark.sql.execution.datasources.FileFormatWriter$.write(FileFormatWriter.scala:251)
+	at org.apache.spark.sql.DataFrameWriter.parquet(DataFrameWriter.scala:802)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at py4j.GatewayConnection.run(GatewayConnection.java:238)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+26/10/12 02:44:04 INFO SparkContext: Invoking stop() from shutdown hook
+26/10/12 02:44:04 INFO SparkUI: Stopped Spark web UI at http://ip-10-0-2-15.ec2.internal:4040
+26/10/12 02:44:04 INFO YarnClientSchedulerBackend: Shutting down all executors
+26/10/12 02:44:05 INFO SparkContext: Successfully stopped SparkContext
+26/10/12 02:44:05 INFO ShutdownHookManager: Shutdown hook called
