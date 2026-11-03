@@ -181,6 +181,4 @@ the log, to show the masking), an executor memory kill on one skewed task, and a
   sent, and keep the notes somewhere with the same access as the logs.
 - The callback reads local task logs only.
 
-## License
 
-MIT
